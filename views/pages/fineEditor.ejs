@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body>
+
+<header>
+  <%- include('../partials/header4'); %>
+</header>
+
+
+<div class="flex">
+  <div class=" pt-2 relative mx-auto text-gray-600">
+    <a href="/profile"><h1 class=" flex-row  text-center text-gray-600 m-2 border rounded-full hover:text-white hover:bg-green-500 mx-auto  ">Profile</h1></a>
+  <a href="/diary"><h1 class=" flex-row  text-center text-gray-600  m-2 border rounded-full hover:text-white hover:bg-green-500 mx-auto  ">Diary</h1></a>
+    <div>
+  <div class="flex flex-col">
+    <form action="/fineEditor" method="post">
+      <div class="flex-row p-2 m-2">
+        <label class="text-2xl text-black" for="tag">Create Tag</label>
+        <input class="border mx-4 px-2" type="text" placeholder="Give a tag to your page"></div>
+        <div class="flex-row p-2 m-2">
+          <button class="border rounded-lg hover:text-white hover:bg-green-500 p-2" type="submit">Save</button>
+        </div>
+      <div class="flex-row">
+        <label for="content"></label>
+        <textarea class="m-auto" id="myTextarea"></textarea>
+      </div>
+    </form>
+   
+  </div>
+  
+      <input
+        class="
+          border-2 border-gray-300
+          bg-white
+          mt-8
+          h-10
+          px-5
+          pr-16
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="search"
+        name="search"
+        placeholder="Search tag"
+      >
+   <!--<button type="submit" class="border p-1 m-1 bg-blue-500 text-white rounded-lg">
+        Search
+      </button>
+    </div>
+
+      <input
+        class="
+          my-8
+          border-2 border-gray-300
+          bg-white
+          h-10
+          px-5
+          pr-16
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+        name="create"
+        placeholder="create tag"
+      />
+      <button
+        class="
+          rounded
+          text-gray-100
+          px-3
+          py-1
+          bg-blue-500
+          hover:shadow-inner
+          hover:bg-blue-700
+          transition-all
+          duration-300
+        "
+      >
+        Save
+      </button>
+    </div>
+  </div>-->   
+ 
+    
+
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+<script
+type="text/javascript"
+src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"
+referrerpolicy="origin"
+></script>
+<script type="text/javascript">
+tinymce.init({
+  branding: false,
+  selector: "#myTextarea",
+
+  width: "100%",
+  height: 470,
+  plugins: [
+    "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+    "table emoticons template paste",
+    "image code",
+  ],
+  toolbar:
+    "fullscreen |insertdatetime |undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | " +
+    "bullist numlist outdent indent | link image | print preview media fullpage | " +
+    "forecolor backcolor emoticons",
+  menu: {
+    favs: {
+      title: "Tools",
+      items: " searchreplace | emoticons | wordcount",
+    },
+
+  },
+  menubar: "favs file edit view insert format table ",
+  content_css: "css/content.css",
+
+  image_title: true,
+
+  automatic_uploads: true,
+
+  file_picker_types: "image",
+
+  file_picker_callback: function (cb, value, meta) {
+    var input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "image/*");
+
+    input.onchange = function () {
+      var file = this.files[0];
+
+      var reader = new FileReader();
+      reader.onload = function () {
+        var id = "blobid" + new Date().getTime();
+        var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+        var base64 = reader.result.split(",")[1];
+        var blobInfo = blobCache.create(id, file, base64);
+        blobCache.add(blobInfo);
+
+        cb(blobInfo.blobUri(), { title: file.name });
+      };
+      reader.readAsDataURL(file);
+    };
+
+    input.click();
+  },
+});
+</script>
+</body>
+</html>
